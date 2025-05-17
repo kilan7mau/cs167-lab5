@@ -2,41 +2,30 @@
 
 ## Student 1 information
 
-* Full name: Nguyễn Hữu Thắng
-* E-mail:thangnh.21ad@vku.udn.vn
-* UCR NetID:thang001
-* Student ID: 21AD053
+* Full name: - Hoàng Hữu Tiến Đạt
+* E-mail: - dathht.21ad@vku.udn.vn
+* Student ID: 21AD011
 ## Student 2 information
-
-* Full name: Nguyễn Thị Thiên Trang
-* E-mail:trangnnt.21ad@vku.udn.vn
-* UCR NetID:
-* Student ID: 21AD063
+* Full name: Dương Tấn Huy
+* E-mail:huydt.21ad@vku.udn.vn
+* Student ID: 21AD025
 ## Student 3 information
-
-* Full name: Nguyễn Thành Đức
-* E-mail:ducnt.21ad@vku.udn.vn
-* UCR NetID:
-* Student ID: 21AD019
-## Student 4 information
-
-* Full name: Tô Thị Thúy Vân
-* E-mail:vanttt.21ad@vku.udn.vn
-* UCR NetID:
-* Student ID: 21AD065
+* Full name: Lê Hồng Anh
+* E-mail:anhlh.21ad@vku.udn.vn
+* Student ID: 21AD002
 ## Answers
 
 1. **(Q1) Do you think it will use your local cluster? Why or why not?**
 * No, it will not use the cluster yet.
 2. **(Q2) Does the application use the cluster that you started? How did you find out?**
-* Yes, after changing the master URL to spark://localhost:7077, the application uses the Spark cluster.
+* Yes, after changing the master URL to spark://laptop-k16jg0ef:8080/, the application uses the Spark cluster.
 3. **(Q3) What is the Spark master printed on the standard output on IntelliJ IDEA?**
 * The Spark master printed on the standard output is: local[*].
 * This means that the Spark application is running in local mode, which is typically used during development and testing. The local[*] setting tells Spark to run locally on the machine using all available CPU cores (the * represents all cores). This mode allows developers to test and debug their Spark programs directly within IntelliJ IDEA without the need for a full cluster setup.
 4. **(Q4) What is the Spark master printed on the standard output on the terminal?**
 5. **(Q5) For the previous command that prints the number of matching lines, how many tasks were created, and how much time it took to process each task.**
 * Number of tasks: 2.
-* Time per task: About 139 ms and 133 ms
+* Time per task: About 700ms
 6. **(Q6) For the previous command that counts the lines and prints the output, how many tasks in total were generated?**
 * Total tasks: 4.
 7. **(Q7) Compare this number to the one you got earlier.**
