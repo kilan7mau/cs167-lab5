@@ -18,14 +18,18 @@
 1. **(Q1) Do you think it will use your local cluster? Why or why not?**
 * No, it will not use the cluster yet.
 2. **(Q2) Does the application use the cluster that you started? How did you find out?**
-* Yes, after changing the master URL to spark://laptop-k16jg0ef:8080/, the application uses the Spark cluster.
+* Yes, after changing the master URL to spark://laptop-k16jg0ef:8080/ (spark://192.168.1.2:7077), the application uses the Spark cluster.
 3. **(Q3) What is the Spark master printed on the standard output on IntelliJ IDEA?**
 * The Spark master printed on the standard output is: local[*].
 * This means that the Spark application is running in local mode, which is typically used during development and testing. The local[*] setting tells Spark to run locally on the machine using all available CPU cores (the * represents all cores). This mode allows developers to test and debug their Spark programs directly within IntelliJ IDEA without the need for a full cluster setup.
 4. **(Q4) What is the Spark master printed on the standard output on the terminal?**
+- If running in local mode within an IDE, you'll often see local[*].
+- When running on a cluster, the most important information is the Master's address, such as spark://192.168.1.2:7077 (this information can be configured and displayed in the terminal output, but the screenshots focus on the web UI)
 5. **(Q5) For the previous command that prints the number of matching lines, how many tasks were created, and how much time it took to process each task.**
 * Number of tasks: 2.
-* Time per task: About 700ms
+* Time per task: 
+- Stage 0 tasks: The "Details for Stage 0 (Attempt 0)" show that the duration for the two tasks in this stage was around 0.3 seconds (or 300ms).
+- Stage 1 tasks: The "Details for Stage 1 (Attempt 0)" show that the duration for the two tasks in this stage was approximately 60ms.
 6. **(Q6) For the previous command that counts the lines and prints the output, how many tasks in total were generated?**
 * Total tasks: 4.
 7. **(Q7) Compare this number to the one you got earlier.**
@@ -49,8 +53,7 @@
      * Stage 1:
         * Step 1: countByKey - Aggregate the JavaPairRDD to count the number of occurrences of each key (response code), creating a Map<String, Long>
 11. **(Q11) Why does your program have two stages?**
-* The program has two phases because countByKey is an action that requires a shuffle to aggregate data across partitions, which requires a phase boundary.
-* Reason:
-    * Phase 0: textFile (read input) and mapToPair (transform) are narrow dependencies, which are executed in the same phase. This phase processes the input file and creates a JavaPairRDD with pairs (response code, 1).
-    * Phase 1: The countByKey action triggers a wide dependency (shuffle) to group and sum values ​​for each key across all partitions. This requires data exchange between nodes, which creates a new phase.
-    * Spark divides the work into phases at the points where shuffles occur, because shuffles are resource-intensive and require synchronization.
+* The program has two stages because the countByKey action triggers a shuffle operation.
+* Explanation:
+  * Stage 0 consists of the textFile and mapToPair transformations. These are "narrow" transformations, meaning they don't require data to be redistributed across partitions. Therefore, they can be executed within the same stage. textFile reads the data, and mapToPair transforms it into key-value pairs.
+  * Stage 1 is initiated by the countByKey action. countByKey is a "wide" operation, necessitating a shuffle. A shuffle involves redistributing data across partitions so that all data with the same key is located on the same partition. This operation is computationally expensive and requires a distinct stage.
